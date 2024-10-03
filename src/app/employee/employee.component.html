@@ -1,0 +1,72 @@
+<div class="emmployee-main">
+
+  <ng-container *ngIf="currentEmployeeList.length || previousEmployeeList.length">
+    <div class="list-container employee-list-section">
+      <div class="list-type" *ngIf="currentEmployeeList.length">
+        <h5>Current employees</h5>
+      </div>
+      <div *ngFor="let emp of currentEmployeeList; let i = index" class="list-item"
+        (touchstart)="isMobile && startSwipe($event, emp.id)" (touchmove)="isMobile && onSwipe($event, emp.id)"
+        (touchend)="isMobile && endSwipe(emp.id)" [class.swiped]="isMobile && swipeEmpId === emp.id">
+        <div class="swipe-content"  [style.transform]="translateX[i]">
+          <div class="item">
+            <p class="m-0"><strong>{{emp.name}}</strong></p>
+            <p class="m-0">{{emp.role}}</p>
+            <p class="m-0">From {{emp.toDate | date:'dd MMM, yyyy'}}</p>
+          </div>
+          <div class="delete-button edit-button" (click)="!isMobile && onAddEmployee(emp.id)"
+            (touchend)="isMobile && onAddEmployee(emp.id)">
+            <img src="../../assets/images/edit-icon.png" alt="delete" />
+          </div>
+          <div class="delete-button" (click)="!isMobile && deleteEmployee(emp.id)"
+            (touchend)="isMobile && deleteEmployee(emp.id)">
+            <img src="../../assets/images/delete-icon.png" alt="delete" />
+          </div>
+        </div>
+      </div>
+
+      <div class="list-type" *ngIf="previousEmployeeList.length">
+        <h5>Previous employees</h5>
+      </div>
+      <div *ngFor="let emp of previousEmployeeList; let i = index" class="list-item"
+        (touchstart)="isMobile && startSwipe($event, emp.id)" (touchmove)="isMobile && onSwipe($event, emp.id)"
+        (touchend)="isMobile && endSwipe(emp.id)" [class.swiped]="isMobile && swipeEmpId === emp.id">
+        <div class="swipe-content" [style.transform]="translateX[i]">
+          <div class="item" >
+            <p class="m-0"><strong>{{emp.name}}</strong></p>
+            <p class="m-0">{{emp.role}}</p>
+            <p class="m-0">{{emp.toDate | date:'dd MMM, yyyy'}} - {{emp.fromDate | date:'dd MMM, yyyy'}}</p>
+          </div>
+          <div class="delete-button edit-button" (click)="!isMobile && onAddEmployee(emp.id)"
+            (touchend)="isMobile && onAddEmployee(emp.id)">
+            <img src="../../assets/images/edit-icon.png" alt="delete" />
+          </div>
+          <div class="delete-button" (click)="!isMobile && deleteEmployee(emp.id)"
+            (touchend)="isMobile && deleteEmployee(emp.id)">
+            <img src="../../assets/images/delete-icon.png" alt="delete" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!currentEmployeeList.length && !previousEmployeeList.length">
+    <div class="no-records-found">
+      <div class="no-record-img">
+          <img src="assets/images/no-records.png" alt="No Records Found" />
+          <p>No employee records found</p>
+      </div>
+  </div>
+  </ng-container>
+
+
+
+  <div class="swipe-delete-message">
+    <p>Swipe left to delete</p>
+  </div>
+  <div class="add-icon">
+    <button class="btn btn-default" (click)="onAddEmployee()">
+      <span nz-icon nzType="plus" nzTheme="outline"></span>
+    </button>
+  </div>
+</div>

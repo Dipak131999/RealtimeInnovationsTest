@@ -1,0 +1,172 @@
+<div class="employee-main">
+    <form [formGroup]="employeeForm">
+        <div class="employee-form  justify-content-center">
+            <div class="row container-fluid mt-4">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="form-group">
+                        <img class="icon-image" src="../../../assets/images/user-icon.png" alt="">
+                        <input type="text" nz-input placeholder="Employee name" formControlName="emmployeeName"
+                            required="" />
+                        <span class="text-danger"
+                            *ngIf="(f['emmployeeName'].touched || isFormSubmitted) && f['emmployeeName'].errors?.['required']">
+                            Name is required
+                        </span>
+                    </div>
+                </div>
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="form-group">
+                        <img class="icon-image" src="../../../assets/images/roletype-icon.png" alt="">
+                        <div class="custom-select-input" (click)="openDrawer()">
+                            <span *ngIf="employeeForm.value.empRole; else placeholder">{{ employeeForm.value.empRole
+                                }}</span>
+
+                            <!-- Placeholder if no role is selected -->
+                            <ng-template #placeholder>
+                                <span class="placeholder-text">Select role</span>
+                            </ng-template>
+                            <span nz-icon nzType="caret-down" nzTheme="outline"></span>
+                        </div>
+                        <span class="text-danger"
+                        *ngIf="(f['empRole'].touched || isFormSubmitted) && f['empRole'].errors?.['required']">
+                        Role is required
+                    </span>
+                    </div>
+                </div>
+
+                <nz-drawer [nzVisible]="visible" nzPlacement="bottom" nzClosable="false" nzHeight="250px"
+                    (nzOnClose)="closeDrawer()">
+                    <ng-container *nzDrawerContent>
+                        <div class="drawer-content">
+                            <!-- Options in the drawer -->
+                            <button class="btn btn-default drawer-button" nzType="link"
+                                (click)="selectRole('Product Designer')">Product Designer</button>
+                            <button class="btn btn-default drawer-button" nzType="link"
+                                (click)="selectRole('Flutter Developer')">Flutter Developer</button>
+                            <button class="btn btn-default drawer-button" nzType="link"
+                                (click)="selectRole('QA Tester')">QA
+                                Tester</button>
+                            <button class="btn btn-default drawer-button" nzType="link"
+                                (click)="selectRole('Product Owner')">Product Owner</button>
+                        </div>
+                    </ng-container>
+                </nz-drawer>
+
+                <div class="mt-3 col-lg-5 col-md-5 col-sm-5 col-5">
+                    <div class="form-group">
+                        <img class="icon-image" src="../../../assets/images/calender-icon.png" alt="">
+                        <input type="text" nz-input placeholder="From Date" readonly (click)="isFromDateVisible = true"
+                            [ngModel]="employeeForm.value.fromDate | date:'dd MMM yyyy'"
+                            [ngModelOptions]="{standalone: true}" />
+                    </div>
+                    <span class="text-danger"
+                            *ngIf="(f['fromDate'].touched || isFormSubmitted) && f['fromDate'].errors?.['required']">
+                            From Date is required
+                        </span>
+                </div>
+
+                <div class="mt-3 col-lg-2 col-md-2 col-sm-2 col-2">
+                    <div class="w-100 h-100  d-flex  justify-content-center align-items-center ">
+                        <img class="icon-image" src="../../../assets/images/arrow-icon.png" alt="">
+                    </div>
+                </div>
+
+                <div class="mt-3 col-lg-5 col-md-5 col-sm-5 col-5">
+                    <div class="form-group">
+                        <img class="icon-image" src="../../../assets/images/calender-icon.png" alt="">
+                        <input type="text" nz-input placeholder="To Date" readonly (click)="isToDateVisible = true"
+                            [ngModel]="employeeForm.value.toDate | date:'dd MMM yyyy'"
+                            [ngModelOptions]="{standalone: true}" />
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="action-button text-end">
+            <hr />
+            <div class="p-3">
+                <button class="btn btn-default ms-2 btn-default-primary" (click)="goToEmployeeList()">Cancel</button>
+                <button class="btn btn-default ms-2 btn-default-primary btn-default-primary-active"
+                    (click)="onSubmit()">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<nz-modal nzClassName="calender-popup" [(nzVisible)]="isFromDateVisible" [nzClosable]="false" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()" [nzFooter]="null">
+    <ng-container *nzModalContent>
+        <div [ngStyle]="{ padding: '20px' }">
+            <div class="d-flex justify-content-between mb-2">
+                <button class="w-50 me-2 btn btn-default btn-default-primary" (click)="selectToday()">Today</button>
+                <button class="w-50 ms-2 btn btn-default btn-default-primary" (click)="selectNextMonday()">Next
+                    Monday</button>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+                <button class="w-50 me-2 btn btn-default btn-default-primary" (click)="selectNextTuesday()">Next
+                    Tuesday</button>
+                <button class="w-50 ms-2 btn btn-default btn-default-primary" (click)="selectAfterOneWeek()">After 1
+                    week</button>
+            </div>
+
+            <div class="p-2 text-center d-flex align-items-center justify-content-center">
+                <span nz-icon class="cursor-pointer next-prev-icon" nzType="caret-left" nzTheme="outline"
+                    (click)="prevMonth()"></span>
+                <h6 class="m-0 ps-2 pe-3">{{ selectedFromDate | date: 'MMMM yyyy' }}</h6>
+                <span nz-icon class="cursor-pointer next-prev-icon" nzType="caret-right" nzTheme="outline"
+                    (click)="nextMonth()"></span>
+            </div>
+
+            <div>
+                <nz-calendar [nzFullscreen]="false" [(ngModel)]="selectedFromDate"></nz-calendar>
+            </div>
+        </div>
+        <hr />
+
+        <div class="ps-2 ps-2 pb-3 pe-2 d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center ps-4">
+                <img src="../../../assets/images/calender-icon.png" alt="">
+                <span class="ms-2">{{selectedFromDate | date:'d MMM yyyy'}}</span>
+            </div>
+            <div class="pe-2">
+                <button class="btn btn-default btn-default-primary" (click)="handleCancel()">Cancel</button>
+                <button class="btn btn-default ms-2 btn-default-primary btn-default-primary-active" nzType="primary"
+                    (click)="handleOk()">Save</button>
+            </div>
+        </div>
+    </ng-container>
+</nz-modal>
+
+
+<nz-modal nzClassName="calender-popup" [(nzVisible)]="isToDateVisible" [nzClosable]="false"
+    (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null">
+    <ng-container *nzModalContent>
+        <div [ngStyle]="{ padding: '20px' }">
+            <div class="d-flex justify-content-between mb-2">
+                <button class="w-50 me-2 btn btn-default btn-default-primary" (click)="removeToDate()">No Date</button>
+                <button class="w-50 me-2 btn btn-default btn-default-primary" (click)="selectToDateToday()">Today</button>
+
+            </div>
+
+            <div>
+                <nz-calendar [nzFullscreen]="false" [nzDisabledDate]="disableBeforeFromDate"
+                    [(ngModel)]="selectedToDate"></nz-calendar>
+            </div>
+        </div>
+        <hr />
+
+        <div class="ps-2 ps-2 pb-3 pe-2 d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center ps-4">
+                <img src="../../../assets/images/calender-icon.png" alt="">
+                <span class="ms-2">{{selectedToDate | date:'d MMM yyyy'}}</span>
+            </div>
+            <div class="pe-2">
+                <button class="btn btn-default btn-default-primary" (click)="handleToDateCancel()">Cancel</button>
+                <button class="btn btn-default ms-2 btn-default-primary btn-default-primary-active" nzType="primary"
+                    (click)="handleToDateOk()">Save</button>
+            </div>
+        </div>
+    </ng-container>
+</nz-modal>

@@ -1,0 +1,15 @@
+.header-main{
+    height: 60px;
+    background: #1DA1F2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .title{
+        h3{
+            margin: 0;
+            color: #ffffff;
+        }
+    }
+}
