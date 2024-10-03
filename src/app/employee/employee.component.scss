@@ -1,0 +1,204 @@
+.mat-icon {
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emmployee-main{
+    height: calc(100vh - 60px);
+    position: relative;
+
+
+    .employee-list-section{
+        height: calc(100vh - 140px);
+        overflow: auto;
+
+        .list-type{
+            background-color: #f2f2f2;
+            padding: 15px 20px;
+
+            h5{
+                font-size: 16px;
+                color: #1DA1F2;
+            }
+        }
+
+        .employee-list{
+            .employee-details{
+                padding: 0px 20px;
+            }
+        }
+    }
+
+
+    .add-icon{
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+
+        .btn-default{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            background: #1DA1F2;
+            border-color: #1DA1F2;
+            color: #ffffff;
+        }
+    }
+
+    .no-records-found{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .no-record-img{
+            width: 300px;
+            text-align: center;
+
+            img{
+                width: 100%;
+            }
+        }
+
+    }
+
+    .swipe-delete-message{
+        position: fixed;
+        bottom: 0;
+        background: #f2f2f2;
+        width: 100%;
+        padding: 15px;
+        color: #949C9E;
+    }
+
+    .employee-details-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0;
+        background-color: #ffffff;
+        color: #000000;
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.3s ease;
+        border-bottom: 1px solid #f2f2f2;
+      }
+
+      .card-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        transition: transform 0.3s ease;
+        padding: 10px;
+
+        p{
+            color: #949C9E;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+      }
+
+      .card-content.swiped {
+        transform: translateX(-100px); /* Slide left when swiped */
+      }
+
+
+      .details {
+        display: flex;
+        flex-direction: column;
+      }
+
+
+      .delete-btn i {
+        font-size: 18px;
+      }
+
+      .info {
+        display: flex;
+        align-items: center;
+      }
+}
+
+
+.list-type {
+  background-color: #f2f2f2;
+  padding: 15px 20px;
+
+  h5 {
+    font-size: 16px;
+    color: #1DA1F2;
+  }
+}
+
+.list-container {
+  max-width: 400px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+.list-item {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  user-select: none; /* Prevents text selection during swiping */
+}
+
+.swipe-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.item {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 15px;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 10px; /* Adjusted padding */
+  text-align: center;
+  min-width: 50px; /* Adjusted min-width for better visibility */
+  display: block; /* Always show on web */
+}
+
+.edit-button {
+  background-color: #14A44D;
+}
+
+.list-item.swiped .delete-button {
+  display: block; /* Show when swiped on mobile */
+}
+
+.list-item.swiped .swipe-content {
+  transform: translateX(-100px); /* On swipe, move the row */
+}
+
+.list-item.swiped .item {
+  margin-right: 100px; /* Space for the delete button */
+}
+
+/* Mobile specific styles */
+@media (max-width: 767px) {
+  .delete-button {
+    display: none; /* Hide on mobile by default */
+  }
+
+  .list-item.swiped .delete-button {
+    display: block; /* Show when swiped on mobile */
+  }
+}

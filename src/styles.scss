@@ -1,0 +1,119 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #F2F2F2;
+}
+
+.container {
+  padding: 0px 20px;
+}
+
+nz-page-header {
+  background: #1DA1F2 !important;
+
+  .ant-page-header-heading-title {
+    color: #ffffff;
+  }
+}
+
+.ant-input {
+  height: 40px;
+}
+
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  height: 40px;
+  padding: 4px 35px;
+}
+
+.ant-drawer-body {
+  padding: 0;
+}
+
+.ant-drawer .ant-drawer-content {
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .drawer-button {
+    width: 100%;
+    border-bottom: 1px solid #F2F2F2;
+
+    &:hover {
+      border-bottom: 1px solid #F2F2F2;
+    }
+  }
+}
+
+.drawer-content button {
+  margin: 10px 0;
+}
+
+
+.ant-select-dropdown {
+  display: none !important;
+}
+
+.btn-default-primary {
+  background-color: #EDF8FF !important;
+  border-color: #EDF8FF !important;
+  color: #1DA1F2 !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+}
+
+.btn-default-primary-active{
+  background-color: #1DA1F2 !important;
+  color: #ffffff !important;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.next-prev-icon{
+  color: #949C9E;
+  font-size: 16px;
+}
+
+.calender-popup{
+  .ant-modal-body{
+    padding: 0;
+  }
+}
+
+.ant-picker-calendar-header{
+  display: none;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner{
+  border-radius: 20px;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before{
+  border: none;
+}
+
+.ant-notification-bottom{
+  left: 0 !important;
+  transform:unset !important;
+  bottom: 0 !important;
+}
+
+.ant-notification-notice{
+  max-width: 100% !important;
+  background:#000000;
+  color: #ffffff;
+  margin-bottom:0px !important;
+}
