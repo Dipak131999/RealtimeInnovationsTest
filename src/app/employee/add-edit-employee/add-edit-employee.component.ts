@@ -158,7 +158,6 @@ export class AddEditEmployeeComponent {
   };
 
   async onSubmit() {
-
     this.isFormSubmitted = true;
 
 
@@ -167,7 +166,7 @@ export class AddEditEmployeeComponent {
     }
 
     const employeeData = {
-      id: this.activatedRout.snapshot.params['id'] ? this.activatedRout.snapshot.params['id']:this.generateUniqueId(),
+      id: this.activatedRout.snapshot.params['id'] ? this.activatedRout.snapshot.params['id'] : this.generateUniqueId(),
       name: this.employeeForm.value.emmployeeName,
       role: this.employeeForm.value.empRole,
       fromDate: this.employeeForm.value.fromDate,
@@ -175,23 +174,38 @@ export class AddEditEmployeeComponent {
     };
 
     let empList: any[] = await this.employeeService.getDataFromIndexedDB() as any[];
-
-    let empDataIndex:any = empList.findIndex((x:any)=>x.id === this.activatedRout.snapshot.params['id']);
-
-    if(empDataIndex || empDataIndex==0){
-      empList[empDataIndex] = employeeData;
-    }
+    let empDataIndex: any;
 
     if (!empList) {
       empList = [];
-    } else {
-      if(!empDataIndex){
+    }
+
+    if (empList.length && this.activatedRout.snapshot.params['id']) {
+      empDataIndex = empList.findIndex((x: any) => x.id === this.activatedRout.snapshot.params['id']);
+    }
+
+    if (empDataIndex || empDataIndex == 0) {
+      empList[empDataIndex] = {
+        id: this.activatedRout.snapshot.params['id'],
+        name: this.employeeForm.value.emmployeeName,
+        role: this.employeeForm.value.empRole,
+        fromDate: this.employeeForm.value.fromDate,
+        toDate: this.employeeForm.value.toDate
+      } ;
+    }
+
+
+    if (!empList) {
+      empList = [];
+    } else{
+      if (!empDataIndex && empDataIndex !== 0) {
         empList.push(employeeData);
       }
     }
 
+
     this.employeeService.setDataInIndexedDB(empList).then((res: any) => {
-      this.employeeService.toastNotification(empDataIndex ? 'Employee Updated Successfully':'Employee Added Successfully');
+      this.employeeService.toastNotification(empDataIndex ? 'Employee Updated Successfully' : 'Employee Added Successfully');
       this.employeeForm.reset();
       this.isFormSubmitted = false;
       this.goToEmployeeList();
