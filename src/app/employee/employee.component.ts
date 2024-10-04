@@ -46,6 +46,10 @@ export class EmployeeComponent {
 
     let empList: any[] = await this.employeeService.getDataFromIndexedDB() as any[];
 
+    if(!empList){
+      empList = [];
+    }
+
     this.currentEmployeeList = empList.filter((x:any)=>{
       return !x.toDate;
     });
